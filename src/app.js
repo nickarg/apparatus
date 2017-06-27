@@ -264,8 +264,8 @@ if (window.location.pathname === dgnPath) {
     addSectroComponent(cy, e.target.value) // imp-state module
     // reset moduleGroup selection
     document.getElementById('add-component-id').selectedIndex = ''
-    totalNodes(cy) // global module
   })
+    totalNodes(cy) // global module
 }
 
 // declaration of global buttons
