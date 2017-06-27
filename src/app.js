@@ -38,6 +38,9 @@ const impStateModelValidation = require('./src/implementation-state/impStateMode
 const impStateOverview = require('./src/implementation-state/impStateOverview.js')
 const addImpStateComponent = require('./src/implementation-state/addImpStateComponent.js')
 
+// require sectro modules
+const addSectroComponent = require('./src/sectro/addSectroComponent.js')
+
 // configuration for the graphs style
 const graphStyle = require(`./style/graphStyle.js`)
 // require the initial graph file
@@ -121,6 +124,7 @@ const dgnPath = path.join(__dirname, 'design.html')
 const dgnStatePath = path.join(__dirname, 'design-state.html')
 const impPath = path.join(__dirname, 'implementation.html')
 const impStatePath = path.join(__dirname, 'implementation-state.html')
+const sectroPath = path.join(__dirname, 'sectro.html')
 
 // here we load the buttons for each phase
 
@@ -239,6 +243,25 @@ if (window.location.pathname === dgnPath) {
   const add = document.getElementById('add-component-id')
   add.addEventListener('change', (e) => {
     addImpStateComponent(cy, e.target.value) // imp-state module
+    // reset moduleGroup selection
+    document.getElementById('add-component-id').selectedIndex = ''
+    totalNodes(cy) // global module
+  })
+} else if (window.location.pathname === sectroPath) {
+  // validate model
+  // const buttonModelValidate = document.getElementById('model-validate-button')
+  // buttonModelValidate.addEventListener('click', () => {
+  //   impStateModelValidation(cy) // imp-state module
+  // })
+  // model overview
+  // const buttonOverview = document.getElementById('overview-button')
+  // buttonOverview.addEventListener('click', () => {
+  //   impStateOverview(cy) // imp-state module
+  // })
+  // add implementation-state component
+  const add = document.getElementById('add-component-id')
+  add.addEventListener('change', (e) => {
+    addSectroComponent(cy, e.target.value) // imp-state module
     // reset moduleGroup selection
     document.getElementById('add-component-id').selectedIndex = ''
     totalNodes(cy) // global module
