@@ -6,7 +6,7 @@ const path = require('path')
 // require global moduless
 const nodeInfo = require('./src/nodeInfo.js')
 const hoverNodeInfo = require('./src/hoverNodeInfo.js')
-const flagNodes = require('./src/flagNodes.js')
+const patterns = require('./src/patterns.js')
 const moduleSelection = require('./src/moduleSelection.js')
 const nodeSelection = require('./src/nodeSelection.js')
 const threatVerification = require('./src/threatVerification.js')
@@ -15,6 +15,7 @@ const addEdge = require('./src/addEdge.js')
 const totalNodes = require('./src/totalNodes.js')
 const save = require('./src/save.js')
 const load = require('./src/load.js')
+const editNode = require('./src/editNode.js')
 
 // require design modules
 const dgnModelValidation = require('./src/design/dgnModelValidation.js')
@@ -69,7 +70,6 @@ let targetNode = ''
 
 // do stuff when tapping on node
 cy.on('tap', 'node', (selection) => {
-  console.log(selection)
   // removes previous selections
   cy.elements().removeClass('selection')
   cy.elements().removeClass('attention')
@@ -80,6 +80,7 @@ cy.on('tap', 'node', (selection) => {
   sourceNode = targetNode // second selection
   targetNode = selectedNode.data().id
   totalNodes(cy) // global module
+  editNode.removeElement() // remove the form element
 })
 // do stuff when tapping on an edge
 cy.on('tap', 'edge', (selection) => {
@@ -90,6 +91,7 @@ cy.on('tap', 'edge', (selection) => {
   selection.target.addClass('selection')
   selectedEdge = selection.target[0]
   totalNodes(cy) // global module
+  editNode.removeElement() // remove the form element
 })
 // do stuff when tapping the stage
 cy.on('tap', (selection) => {
@@ -103,11 +105,13 @@ cy.on('tap', (selection) => {
     document.getElementById('module-group').selectedIndex = ''
     document.getElementById('selection-id').selectedIndex = ''
     totalNodes(cy) // global module
+    editNode.removeElement() // remove the form element
   }
 })
 // right clicking
-cy.on('cxttapend', 'node', (event) => {
-  console.log('right clicking')
+cy.on('cxttapend', 'node', (selection) => {
+  selectedNode = selection.target[0]
+  editNode.formNode(selectedNode) // global module
 })
 // do stuff when hovering over a node
 cy.on('mouseover', 'node', (event) => {
@@ -120,16 +124,27 @@ cy.on('mouseout', 'node', (event) => {
 })
 
 // create the paths of each phase
+<<<<<<< HEAD
 const dgnPath = path.join(__dirname, 'design.html')
 const dgnStatePath = path.join(__dirname, 'design-state.html')
 const impPath = path.join(__dirname, 'implementation.html')
 const impStatePath = path.join(__dirname, 'implementation-state.html')
 const sectroPath = path.join(__dirname, 'sectro.html')
+=======
+const dgnPath = 'design.html'
+const dgnStatePath = 'design-state.html'
+const impPath = 'implementation.html'
+const impStatePath = 'implementation-state.html'
+
+// store the last word of the window path to make it cross plaform
+// blame chromium and its Posix paths on windows for this ugliness
+const pathLocation = (window.location.pathname).split('/').pop()
+>>>>>>> upstream/master
 
 // here we load the buttons for each phase
 
 // load design phase buttons
-if (window.location.pathname === dgnPath) {
+if (pathLocation === dgnPath) {
   // validate the model
   const buttonModelValidate = document.getElementById('model-validate-button')
   buttonModelValidate.addEventListener('click', () => {
@@ -161,7 +176,7 @@ if (window.location.pathname === dgnPath) {
     // document.getElementById('module-group').selectedIndex = ''
   })
   // load design-state buttons
-} else if (window.location.pathname === dgnStatePath) {
+} else if (pathLocation === dgnStatePath) {
   // validate model
   const buttonModelValidate = document.getElementById('model-validate-button')
   buttonModelValidate.addEventListener('click', () => {
@@ -181,7 +196,7 @@ if (window.location.pathname === dgnPath) {
     totalNodes(cy) // global module
   })
   // loads implementation phase buttons
-} else if (window.location.pathname === impPath) {
+} else if (pathLocation === impPath) {
   // validate model
   const buttonModelValidate = document.getElementById('model-validate-button')
   buttonModelValidate.addEventListener('click', () => {
@@ -202,10 +217,10 @@ if (window.location.pathname === dgnPath) {
   buttonFindVuln.addEventListener('click', () => {
     findVulns(cy) // imp module
   })
-  // flag nodes based on specific attributes
-  const buttonFlag = document.getElementById('flag-button')
-  buttonFlag.addEventListener('click', () => {
-    flagNodes(cy) // global module
+  // locate patterns based on specific attributes
+  const buttonPattern = document.getElementById('pattern-button')
+  buttonPattern.addEventListener('click', () => {
+    patterns(cy) // global module
   })
   // verify threats
   const buttonThreatVefiry = document.getElementById('threat-verify-button')
@@ -228,7 +243,7 @@ if (window.location.pathname === dgnPath) {
     // document.getElementById('module-group').selectedIndex = ''
   })
   // loads implementation-state buttons
-} else if (window.location.pathname === impStatePath) {
+} else if (pathLocation === impStatePath) {
   // validate model
   const buttonModelValidate = document.getElementById('model-validate-button')
   buttonModelValidate.addEventListener('click', () => {
@@ -368,6 +383,9 @@ buttonLoad.addEventListener('click', () => {
 const buttonTest = document.getElementById('test-button')
 buttonTest.addEventListener('click', () => {
   // test code goes here
+  const cont = document.getElementById('info-nodes-id')
+  const fo = document.getElementById('form-id')
+  cont.removeChild(fo)
 })
 
 // highlights only the selected node class

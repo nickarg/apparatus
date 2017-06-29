@@ -2,7 +2,7 @@
   --main-bg-color: #292a44;
   --main-dark-bg-color: #212135;
   --main-tx-color: #f1eff7;
-  --blue-color: #7aa5ff;
+  --blue-color: #6d94e5;
   --cyan-color: #6df3df;
   --black-color: #2d3e4f;
   --gray-color: #abb2bf;
@@ -134,6 +134,24 @@ h3 {
   -webkit-animation: fadein 0.3s;
 }*/
 
+.input-form {
+  background-color: var(--main-bg-color);
+  border: 1px solid;
+  border-radius: 10px;
+  border-color: var(--main-bg-color);
+  color: var(--main-tx-color);
+}
+.input-form {
+  outline: none;
+}
+.submit-form {
+  background-color: var(--main-bg-color);
+  margin-top: 3px;
+  color: var(--main-tx-color);
+  border: 1px solid;
+  border-radius: 10px;
+  border-color: var(--main-bg-color);
+}
 
 .console-wrapper {
   width: 100%;
