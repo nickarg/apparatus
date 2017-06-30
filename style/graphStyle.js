@@ -67,7 +67,7 @@ graphStyle.style = [{
   }, {
     selector: '.plan',
     style: {
-      shape: 'vee',
+      shape: 'hexagon',
       'background-color': configGraph.blue
     }
   }, {
@@ -79,7 +79,7 @@ graphStyle.style = [{
   }, {
     selector: '.mechanism',
     style: {
-      shape: 'rhomboid',
+      shape: 'hexagon',
       'background-color': configGraph.green
     }
   }, {
