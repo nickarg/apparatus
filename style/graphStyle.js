@@ -19,6 +19,25 @@ graphStyle.style = [{
       'width': 2,
     }
   }, {
+  selector: '.label-nodes',
+  style: {
+    label: 'data(label)',
+    'text-valign': 'center',
+    'color': configGraph.white,
+    'text-outline-width': 2,
+    'text-outline-color': configGraph.black
+  }
+}, {
+  selector: '.label-edges',
+  style: {
+    label: 'data(label)',
+    'target-arrow-shape': 'triangle',
+    'target-arrow-color': configGraph.gray,
+    'color': configGraph.white,
+    'text-outline-width': 2,
+    'text-outline-color': configGraph.black
+    }
+  }, {
     selector: '.faded',
     style: {
       'opacity': 0.25,
@@ -110,7 +129,6 @@ graphStyle.style = [{
       //'line-style': 'dashed'
       label: 'requires'
     }
-
   }, {
     selector: '.restricts',
     style: {
@@ -121,7 +139,7 @@ graphStyle.style = [{
       // 'source-arrow-shape': 'triangle',
       // 'source-arrow-fill': 'filled'
     }
-  },
+  }
 ]
 
 module.exports = graphStyle
