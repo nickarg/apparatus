@@ -9,25 +9,33 @@ graphStyle.style = [{
     style: {
       // shape: 'ellipse',
       'background-color': configGraph.gray,
-      label: 'data(label)',
-      'text-valign': 'center',
-      'color': configGraph.white,
-      'text-outline-width': 2,
-      'text-outline-color': configGraph.black
+
     }
   }, {
     selector: 'edge',
     style: {
       'curve-style': 'bezier',
       'line-color': configGraph.gray,
-      label: 'data(label)',
-      'mid-target-arrow-shape': 'triangle',
-      'mid-target-arrow-color': configGraph.gray,
       'width': 2,
-      'color': configGraph.white,
-      'text-outline-width': 2,
-      'text-outline-color': configGraph.black,
-      'source-text-offset': 1
+    }
+  }, {
+  selector: '.label-nodes',
+  style: {
+    label: 'data(label)',
+    'text-valign': 'center',
+    'color': configGraph.white,
+    'text-outline-width': 2,
+    'text-outline-color': configGraph.black
+  }
+}, {
+  selector: '.label-edges',
+  style: {
+    label: 'data(label)',
+    'target-arrow-shape': 'triangle',
+    'target-arrow-color': configGraph.gray,
+    'color': configGraph.white,
+    'text-outline-width': 2,
+    'text-outline-color': configGraph.black
     }
   }, {
     selector: '.faded',
@@ -121,7 +129,6 @@ graphStyle.style = [{
       //'line-style': 'dashed'
       label: 'requires'
     }
-
   }, {
     selector: '.restricts',
     style: {
@@ -132,7 +139,7 @@ graphStyle.style = [{
       // 'source-arrow-shape': 'triangle',
       // 'source-arrow-fill': 'filled'
     }
-  },
+  }
 ]
 
 module.exports = graphStyle

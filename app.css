@@ -8,7 +8,6 @@
   --gray-color: #abb2bf;
 }
 
-
 /*:root {
   --main-bg-color: #282c34;
   --main-dark-bg-color: #21252b;
@@ -141,9 +140,11 @@ h3 {
   border-color: var(--main-bg-color);
   color: var(--main-tx-color);
 }
+
 .input-form {
   outline: none;
 }
+
 .submit-form {
   background-color: var(--main-bg-color);
   margin-top: 3px;
@@ -203,28 +204,19 @@ h3 {
 
 .button:hover, .selection:hover {
   border-bottom-color: var(--blue-color);
-  color: var(--blue-color)
+  color: var(--blue-color);
 }
 
-
 /*remove the blue outline box of chrome*/
-
 .button:focus, .selection:focus {
   outline: none;
 }
 
-
 /*flash color when clicked*/
-
 .button:active, .selection:active {
   color: var(--main-tx-color);
   border-bottom-color: var(--main-tx-color);
 }
-
-
-/*select:required:invalid {
-  color: #94a4a5;
-}*/
 
 option[value=""][disabled] {
   display: none;
@@ -257,10 +249,41 @@ option {
   bottom: 0;
   left: 0;
   margin: 5px;
-  position: absolute;
+  position: fixed;
   white-space: pre-wrap;
   font-size: 13px;
   overflow: auto;
+}
+
+.label-wrapper {
+  bottom: 22px;
+  position: fixed;
+}
+
+.label-button {
+  background-color: var(--main-dark-bg-color);
+  margin: 1px;
+  color: var(--main-tx-color);
+  width: 20px;
+  height: 20px;
+  border: 1px solid;
+  border-radius: 20px;
+  border-color: var(--main-dark-bg-color);
+  font-size: 10px;
+}
+
+.label-button:hover {
+  background-color: var(--blue-color);
+}
+
+/*remove the blue outline box of chrome*/
+.label-button:focus {
+  outline: none;
+}
+
+/*flash color when clicked*/
+.label-button:active {
+  background-color: : var(--main-tx-color);
 }
 
 .choose {
@@ -284,9 +307,7 @@ option {
   border-bottom-color: var(--blue-color);
 }
 
-
 /*remove the blue outline box of chrome*/
-
 .buttonPhase:focus {
   outline: none;
 }
@@ -305,4 +326,13 @@ option {
   border-radius: 6px;
   background-color: rgba(171, 178, 191, 0.3);
   /*-webkit-box-shadow: inset 0 0 6px rgba(171,178,191,0.5);*/
+}
+
+/*warning to save file on exit*/
+#home-button-id:hover:after {
+  content: 'save first';
+}
+
+#home-button-id:hover span {
+  display: none;
 }

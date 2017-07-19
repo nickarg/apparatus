@@ -18,26 +18,30 @@
       <div class="components" id="components-id">
 
         <select class="selection" required id="add-component-id">
-          <!-- <option value="" disabled selected>add component</option> -->
-          <option value="" selected>add component</option>
-          <option value="sensor">sensor</option>
+          <option value="" disabled selected>add component</option>
           <option value="model">model</option>
-          <option value="event-sensor">event sensor</option>
-          <option value="report-sensor">report sensor</option>
-          <option value="control-sensor">control sensor</option>
+          <option value="event sensor">event sensor</option>
+          <option value="report sensor">report sensor</option>
+          <option value="control sensor">control sensor</option>
+          <option value="high-level event">high-level event</option>
+          <option value="low-level event">low-level event</option>
         </select>
 
         <button class="button" id="add-edge">connection</button>
-        <button class="button" id="delete-node">delete node</button>
-        <button class="button" id="delete-edge">delete edge</button>
+        <button class="button" id="delete">delete</button>
 
         <select class="selection" required id="selection-id">
           <option value="" disabled selected>Select component</option>
-          <option value="sensor">sensor</option>
           <option value="model">model</option>
-          <option value="event-sensor">event sensor</option>
-          <option value="report-sensor">report sensor</option>
-          <option value="control-sensor">control sensor</option>
+          <option value="event sensor">event sensor</option>
+          <option value="report sensor">report sensor</option>
+          <option value="control sensor">control sensor</option>
+          <option value="high-level event">high-level event</option>
+          <option value="low-level event">low-level event</option>
+        </select>
+
+        <select class="selection" required id="module-group">
+          <!-- <option value="" disabled selected>Select module</option> -->
         </select>
 
         <button class="button" id="neighbors-button">neighbors</button>
@@ -46,7 +50,17 @@
         <button class="button" id="layout-button">cose layout</button>
         <button class="button" id="save-button">save</button>
         <button class="button" id="load-button">load</button>
+        <form>
+          <button class="button" id="home-button-id" type="submit" formaction="index.html"><span>home</span></button>
+        </form>
         <button class="button" id="test-button">test</button>
+
+        <div class="label-wrapper" id="label-wrapper-id">
+          <button class="label-button" id="hide-label" title="hide label">1</button>
+          <button class="label-button" id="show-label" title="show labels">2</button>
+          <button class="label-button" id="show-label-node" title="show node labels">3</button>
+          <button class="label-button" id="show-label-edge" title="show edge labels">4</button>
+        </div>
 
         <div class="legend" id="legend-id"></div>
       </div>
