@@ -2,7 +2,7 @@
 
 // add components in the graph
 
-module.exports = function addSectroComponent (cy, component) {
+module.exports = function addSectroComponent (cy, component, nodeCounter) {
   let lastNode = cy.nodes().length + 1
 
   switch (component) {

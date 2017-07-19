@@ -143,7 +143,7 @@ module.exports = function setup (cy) {
     impState.validate(cy)
     impState.addEdge(cy, srcNode, trgNode, srcNodeCpt, trgNodeCpt)
   } else if (pathLocation === sectroPath) {
-    sectro.addNode(cy)
+    sectro.addNode(cy, initialCount)
     sectro.overview(cy)
     sectro.validate(cy)
     sectro.addEdge(cy, srcNode, trgNode, srcNodeCpt, trgNodeCpt)
