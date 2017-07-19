@@ -22,6 +22,8 @@ const imp = require('../src/implementation/implementation.js')
 // require implementation-state modules
 const impState = require('../src/implementation-state/impState.js')
 
+const sectro = require('../src/sectro/sectro.js')
+
 module.exports = function setup (cy) {
   // initial label render
   cy.nodes().addClass('label-nodes')
@@ -100,6 +102,7 @@ module.exports = function setup (cy) {
   const dgnStatePath = 'design-state.html'
   const impPath = 'implementation.html'
   const impStatePath = 'implementation-state.html'
+  const sectroPath = 'sectro.html'
 
   // store the last word of the window path to make it cross plaform
   // blame chromium and its Posix paths on windows for this ugliness
@@ -138,6 +141,11 @@ module.exports = function setup (cy) {
     impState.overview(cy)
     impState.validate(cy)
     impState.addEdge(cy, srcNode, trgNode, srcNodeCpt, trgNodeCpt)
+  } else if (pathLocation === sectroPath) {
+    sectro.addNode(cy)
+    sectro.overview(cy)
+    sectro.validate(cy)
+    sectro.addEdge(cy, srcNode, trgNode, srcNodeCpt, trgNodeCpt)
   }
 
   // declaration of global buttons

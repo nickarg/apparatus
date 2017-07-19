@@ -76,6 +76,85 @@ graphStyle.style = [{
     'text-outline-width': 2,
     'text-outline-color': config.background
   }
+}, {
+    selector: '.actor',
+    style: {
+      shape: 'ellipse',
+      'background-color': config.magenta
+    }
+  }, {
+    selector: '.goal',
+    style: {
+      shape: 'roundrectangle',
+      'background-color': config.green
+    }
+  }, {
+    selector: '.plan',
+    style: {
+      shape: 'hexagon',
+      'background-color': config.blue
+    }
+  }, {
+    selector: '.resource',
+    style: {
+      shape: 'rectangle',
+      'background-color': config.yellow
+    }
+  }, {
+    selector: '.mechanism',
+    style: {
+      shape: 'hexagon',
+      'background-color': config.green
+    }
+  }, {
+    selector: '.constraint',
+    style: {
+      shape: 'octagon',
+      'background-color': config.red
+    }
+  }, {
+    selector: '.threat',
+    style: {
+      shape: 'triangle',
+      'background-color': config.orange
+    }
+  }, {
+    selector: '.and',
+    style: {
+      shape: 'diamond',
+      'background-color': config.blue
+    }
+  }, {
+    selector: '.or',
+    style: {
+      shape: 'diamond',
+      'background-color': config.blue
+    }
+  },
+  // declare edge shapes
+  {
+    selector: '.creates',
+    style: {
+      //'line-style': 'dashed'
+      label: 'creates'
+    }
+  },
+  {
+    selector: '.requires',
+    style: {
+      //'line-style': 'dashed'
+      label: 'requires'
+    }
+  }, {
+    selector: '.restricts',
+    style: {
+      //'line-style': 'dashed'
+       label: 'restricts',
+      // 'text-valign': 'bottom',
+      // 'source-arrow-color': config.gray,
+      // 'source-arrow-shape': 'triangle',
+      // 'source-arrow-fill': 'filled'
+    }
 }]
 
 module.exports = graphStyle
