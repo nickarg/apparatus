@@ -1,23 +1,15 @@
 'use strict'
 
-const cytoscape = require('cytoscape')
-const path = require('path')
+const load = require('./src/core/load.js')
+const initialize = require('./src/initialize.js')
+const cyOptions = require('./src/core/cyOptions.js')
 
-// require global moduless
-// const nodeInfo = require('./src/nodeInfo.js')
-const hoverNodeInfo = require('./src/hoverNodeInfo.js')
-const nodeSelection = require('./src/nodeSelection.js')
-const keybindings = require('./src/keybindings.js')
-const totalNodes = require('./src/totalNodes.js')
-const save = require('./src/save.js')
-const load = require('./src/load.js')
-const editNode = require('./src/editNode.js')
-const coseLayout = require('./src/coseLayout.js')
+const template = '../../graphs/modelTemplate.js'
+const testGraph = '../../graphs/implementation/smartHome.js'
 
-// require design modules
-const addDgnEdge = require('./src/design/addDgnEdge.js')
-const dgn = require('./src/design/design.js')
+let cy = {}
 
+<<<<<<< HEAD
 // require design-state Models
 const addDgnStateEdge = require('./src/design-state/addDgnStateEdge.js')
 const dgnState = require('./src/design-state/dgnState.js')
@@ -144,65 +136,67 @@ const pathLocation = window.location.pathname.split('/').pop()
 >>>>>>> acdd0cdea08a5861ed3bbdb9e4c8a4f385a08069
 
 // here we load the buttons for each phase
+=======
+// loads the empty template
+const newGraph = () => {
+  cyOptions(cy, template)
+  initialize(cy.out)
+}
+// loads the debugging graph
+const debugGraph = () => {
+  cyOptions(cy, testGraph)
+  initialize(cy.out)
+}
+>>>>>>> upstream/master
 
-// load design phase buttons
-if (pathLocation === dgnPath) {
-  dgn.addNode(cy)
-  // dgn.addEdge(cy, srcNode, trgNode, srcNodeCpt, trgNodeCpt)
-  dgn.overview(cy)
-  dgn.validate(cy)
-  dgn.moduleGroup(cy)
-  // add design edges
-  const buttonAddEdge = document.getElementById('add-edge')
-  buttonAddEdge.addEventListener('click', () => {
-    addDgnEdge(cy, srcNode, trgNode, srcNodeCpt, trgNodeCpt) // design module
-    cy.edges().addClass('label-edges')
-    totalNodes(cy)
-  })
-  // load design-state buttons
-} else if (pathLocation === dgnStatePath) {
-  dgnState.addNode(cy)
-  // dgnState.addEdge(cy, srcNode, trgNode, srcNodeCpt, trgNodeCpt)
-  dgnState.overview(cy)
-  dgnState.validate(cy)
-  // add generic edges
-  const buttonAddEdge = document.getElementById('add-edge')
-  buttonAddEdge.addEventListener('click', () => {
-    addDgnStateEdge(cy, srcNode, trgNode, srcNodeCpt, trgNodeCpt) // dgn-state module
-    cy.edges().addClass('label-edges')
-    totalNodes(cy)
-  })
-  // loads implementation phase buttons
-} else if (pathLocation === impPath) {
-  imp.addNode(cy)
-  // imp.addEdge(cy, srcNode, trgNode, srcNodeCpt, trgNodeCpt)
-  imp.overview(cy)
-  imp.validate(cy)
-  imp.threatVerify(cy)
-  imp.vulnVerify(cy)
-  imp.findVulnerabilities(cy)
-  imp.findPattern(cy)
-  imp.moduleGroup(cy)
+// TODO move it to different modules
+// creates the option menu on startup
+// the element is removed on selection
+const start = () => {
+  const graph = document.getElementById('graph-container')
+  const wrapper = document.createElement('wrapper')
+  wrapper.id = 'wrapper-id'
+  wrapper.className = 'wrapper'
+  wrapper.textContent = 'select'
 
-  // add imp edges
-  const buttonAddEdge = document.getElementById('add-edge')
-  buttonAddEdge.addEventListener('click', () => {
-    addImpEdge(cy, srcNode, trgNode, srcNodeCpt, trgNodeCpt) // imp module
-    cy.edges().addClass('label-edges')
-    totalNodes(cy)
-  })
-  // loads implementation-state buttons
-} else if (pathLocation === impStatePath) {
-  impState.addNode(cy)
-  // impState.addEdge(cy, srcNode, trgNode, srcNodeCpt, trgNodeCpt)
-  impState.overview(cy)
-  impState.validate(cy)
+  const buttonNew = document.createElement('button')
+  buttonNew.id = 'new-id'
+  buttonNew.className = 'startButtons'
+  buttonNew.type = 'button'
+  buttonNew.value = 'new'
+  buttonNew.textContent = 'new graph'
 
-  const buttonAddEdge = document.getElementById('add-edge')
-  buttonAddEdge.addEventListener('click', () => {
-    addImpStateEdge(cy, srcNode, trgNode, srcNodeCpt, trgNodeCpt) // dgn-state module
-    cy.edges().addClass('label-edges')
-    totalNodes(cy)
+  const buttonLoad = document.createElement('button')
+  buttonLoad.id = 'load-id'
+  buttonLoad.className = 'startButtons'
+  buttonLoad.type = 'button'
+  buttonLoad.value = 'load'
+  buttonLoad.textContent = 'load graph'
+
+  const buttonDebug = document.createElement('button')
+  buttonDebug.id = 'debug-id'
+  buttonDebug.className = 'startButtons'
+  buttonDebug.type = 'button'
+  buttonDebug.value = 'debug'
+  buttonDebug.textContent = 'bebug app'
+
+  wrapper.appendChild(buttonNew)
+  wrapper.appendChild(buttonLoad)
+  wrapper.appendChild(buttonDebug)
+
+  graph.appendChild(wrapper)
+
+  buttonNew.addEventListener('click', () => {
+    newGraph()
+    graph.removeChild(wrapper)
+  })
+  buttonLoad.addEventListener('click', () => {
+    load(cy)
+    graph.removeChild(wrapper)
+  })
+  buttonDebug.addEventListener('click', () => {
+    debugGraph(cy)
+    graph.removeChild(wrapper)
   })
 } else if (pathLocation === sectroPath) {
   // validate model
@@ -225,87 +219,21 @@ if (pathLocation === dgnPath) {
     totalNodes(cy) // global module
 }
 
-// declaration of global buttons
+start()
 
-// delele selected node
-const buttonDelete = document.getElementById('delete')
-buttonDelete.addEventListener('click', () => {
-  if (selectedNode === '' && selectedEdge !== '') {
-    selectedEdge.remove()
-  }
-  if (selectedEdge === '' && selectedNode !== '') {
-    selectedNode.remove()
-  }
-  totalNodes(cy) // global module
-})
-// show the neighbors of a tapped node
-const buttonNeighbor = document.getElementById('neighbors-button')
-buttonNeighbor.addEventListener('click', () => {
-  // selectedNode from cy.on tap node function
-  const neighborhood = selectedNode.neighborhood().add(selectedNode)
-  cy.elements().addClass('faded')
-  neighborhood.removeClass('faded')
-})
-// cose layout
-const buttonLayout = document.getElementById('layout-button')
-buttonLayout.addEventListener('click', () => {
-  coseLayout(cy)
-})
-// save graph
-const buttonSave = document.getElementById('save-button')
-buttonSave.addEventListener('click', () => {
-  save(cy, path) // global module
-})
-// load graph
-const buttonLoad = document.getElementById('load-button')
-buttonLoad.addEventListener('click', () => {
-  load(cy, graphModel, cytoscape, graphStyle) // global module
-})
-const hideLabelsButton = document.getElementById('hide-label')
-hideLabelsButton.addEventListener('click', () => {
-  cy.nodes().removeClass('label-nodes')
-  cy.edges().removeClass('label-edges')
-})
-const showLabelsButton = document.getElementById('show-label')
-showLabelsButton.addEventListener('click', () => {
-  cy.nodes().addClass('label-nodes')
-  cy.edges().addClass('label-edges')
-})
-const showLabelNodeButton = document.getElementById('show-label-node')
-showLabelNodeButton.addEventListener('click', () => {
-  cy.nodes().addClass('label-nodes')
-})
-const showLabelEdgeButton = document.getElementById('show-label-edge')
-showLabelEdgeButton.addEventListener('click', () => {
-  cy.edges().addClass('label-edges')
-})
-// test function
-const buttonTest = document.getElementById('test-button')
-buttonTest.addEventListener('click', () => {
-  // test code goes here
-  dgnState.test(srcNodeCpt, trgNodeCpt)
-})
+/*
+The default behavior of the app (asking to load graphs) can be annoying
+when developing new features. To prevent that, uncomment the code below and
+comment everything above it. It loads a hard coded graph every time you reload
+the app.
+*/
 
-// highlights only the selected node class
-const select = document.getElementById('selection-id')
-select.addEventListener('change', e => {
-  nodeSelection(cy, e.target.value) // global module
-})
+// uncomment the code below for debugging
 
-// toggles side panels
-const toggleUI = () => {
-  const sidebarStatus = document.getElementById('sidebar-id')
-  const actionBarStatus = document.getElementById('action-bar-id')
-  if (sidebarStatus.style.display === 'block') {
-    sidebarStatus.style.display = 'none'
-    actionBarStatus.style.display = 'none'
-  } else {
-    sidebarStatus.style.display = 'block'
-    actionBarStatus.style.display = 'block'
-  }
-}
-
-totalNodes(cy) // global module
-
-// enable keybindings
-keybindings(cy, toggleUI) // global module
+// const testGraph = '../../graphs/implementation/smartHome.js'
+// const initialize = require('./src/initialize.js')
+// const cyOptions = require('./src/core/cyOptions.js')
+//
+// let cy = {}
+// cyOptions(cy, testGraph) // uncomment for debugging
+// initialize(cy.out) // uncomment for debugging

@@ -2,7 +2,7 @@
 
 // implementation module
 
-// require design-state modules
+// require implementation modules
 const impModelValidation = require('./impModelValidation.js')
 const impOverview = require('./impOverview.js')
 const addImpComponent = require('./addImpComponent.js')
@@ -11,35 +11,29 @@ const vulnVerification = require('./vulnVerification.js')
 const findVulns = require('./findVulns.js')
 
 // require global modules
-const totalNodes = require('../totalNodes.js')
-const threatVerification = require('../threatVerification.js')
-const patterns = require('../patterns.js')
-const moduleSelection = require('../moduleSelection.js')
+const totalNodes = require('../core/totalNodes.js')
+const threatVerification = require('../core/threatVerification.js')
+const patterns = require('../core/patterns.js')
+const moduleSelection = require('../core/moduleSelection.js')
 
 // design nodes
 const addNode = cy => {
   const addNode = document.getElementById('add-component-id')
-  addNode.addEventListener('change', e => {
-    addImpComponent(cy, e.target.value)
+  addNode.addEventListener('click', e => {
+    addImpComponent(cy, e.target.textContent)
     cy.nodes().addClass('label-nodes')
-    // reset moduleGroup selection
-    document.getElementById('add-component-id').selectedIndex = ''
     totalNodes(cy) // global module
   })
 }
 
 // add design edges
-// TODO doesn't work
 const addEdge = (cy, srcNode, trgNode, srcNodeCpt, trgNodeCpt) => {
   const buttonAddEdge = document.getElementById('add-edge')
   buttonAddEdge.addEventListener('click', () => {
-    addImpEdge(cy, srcNode, trgNode, srcNodeCpt, trgNodeCpt)
+    addImpEdge(cy, srcNode.out, trgNode.out, srcNodeCpt.out, trgNodeCpt.out)
     cy.edges().addClass('label-edges')
-    console.log(srcNode)
-    totalNodes(cy) // global module
   })
 }
-
 // validate model
 const validate = cy => {
   const buttonModelValidate = document.getElementById('model-validate-button')
@@ -47,7 +41,6 @@ const validate = cy => {
     impModelValidation(cy)
   })
 }
-
 // verify threats
 const threatVerify = cy => {
   const buttonThreatVefiry = document.getElementById('threat-verify-button')
@@ -55,7 +48,6 @@ const threatVerify = cy => {
     threatVerification(cy) // global module
   })
 }
-
 // verify vulnerabilities
 const vulnVerify = cy => {
   const buttonVulnVefiry = document.getElementById('vuln-verify-button')
@@ -63,7 +55,6 @@ const vulnVerify = cy => {
     vulnVerification(cy)
   })
 }
-
 // find vulnerabilities
 const findVulnerabilities = cy => {
   const buttonFindVuln = document.getElementById('find-vuln-button')
@@ -71,7 +62,6 @@ const findVulnerabilities = cy => {
     findVulns(cy)
   })
 }
-
 // find patterns
 const findPattern = cy => {
   const buttonPattern = document.getElementById('pattern-button')
@@ -79,7 +69,6 @@ const findPattern = cy => {
     patterns(cy) // global module
   })
 }
-
 // model overview
 const overview = cy => {
   const buttonOverview = document.getElementById('overview-button')
@@ -87,12 +76,11 @@ const overview = cy => {
     impOverview(cy)
   })
 }
-
 // module selection
 const moduleGroup = cy => {
   const group = document.getElementById('module-group')
-  group.addEventListener('change', input => {
-    moduleSelection(input, cy) // global module
+  group.addEventListener('click', e => {
+    moduleSelection(cy, e.target.textContent) // global module
   })
 }
 

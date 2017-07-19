@@ -26,13 +26,13 @@ module.exports = function threatVerification (cy) {
       if (type.data().hasOwnProperty('info')) {
         if (type.data().info.concept === 'constraint') {
           result = `${result} • Threat ${threat.data()
-            .id} is mitigated by Constraint ${type.data().id}\n`
+            .id} mitigated by Constraint ${type.data().id}\n`
           mitigatedThreats += 1
         }
       }
     })
   })
-  result = `${result} • Threats total: ${threatArray.length}\n`
+  result = `${result}\n • Threats total: ${threatArray.length}\n`
   result = `${result} • Mitigated total: ${mitigatedThreats}\n`
   printChat(result)
 }

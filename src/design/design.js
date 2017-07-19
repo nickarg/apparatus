@@ -2,40 +2,34 @@
 
 // design module
 
-// require design-state modules
+// require design modules
 const dgnModelValidation = require('./dgnModelValidation.js')
 const dgnOverview = require('./dgnOverview.js')
 const addDgnComponent = require('./addDgnComponent.js')
 const addDgnEdge = require('./addDgnEdge.js')
 
 // require global modules
-const totalNodes = require('../totalNodes.js')
-const moduleSelection = require('../moduleSelection.js')
+const totalNodes = require('../core/totalNodes.js')
+const threatVerification = require('../core/threatVerification.js')
+const moduleSelection = require('../core/moduleSelection.js')
 
 // design nodes
 const addNode = cy => {
   const addNode = document.getElementById('add-component-id')
-  addNode.addEventListener('change', e => {
-    addDgnComponent(cy, e.target.value)
+  addNode.addEventListener('click', e => {
+    addDgnComponent(cy, e.target.textContent)
     cy.nodes().addClass('label-nodes')
-    // reset moduleGroup selection
-    document.getElementById('add-component-id').selectedIndex = ''
     totalNodes(cy) // global module
   })
 }
-
 // add design edges
-// TODO doesn't work
 const addEdge = (cy, srcNode, trgNode, srcNodeCpt, trgNodeCpt) => {
   const buttonAddEdge = document.getElementById('add-edge')
   buttonAddEdge.addEventListener('click', () => {
-    addDgnEdge(cy, srcNode, trgNode, srcNodeCpt, trgNodeCpt)
+    addDgnEdge(cy, srcNode.out, trgNode.out, srcNodeCpt.out, trgNodeCpt.out)
     cy.edges().addClass('label-edges')
-    console.log(srcNode)
-    totalNodes(cy) // global module
   })
 }
-
 // validate model
 const validate = cy => {
   const buttonModelValidate = document.getElementById('model-validate-button')
@@ -43,7 +37,13 @@ const validate = cy => {
     dgnModelValidation(cy)
   })
 }
-
+// verify threats
+const threatVerify = cy => {
+  const buttonThreatVefiry = document.getElementById('threat-verify-button')
+  buttonThreatVefiry.addEventListener('click', () => {
+    threatVerification(cy) // global module
+  })
+}
 // model overview
 const overview = cy => {
   const buttonOverview = document.getElementById('overview-button')
@@ -51,18 +51,18 @@ const overview = cy => {
     dgnOverview(cy)
   })
 }
-
 // module selection
 const moduleGroup = cy => {
   const group = document.getElementById('module-group')
-  group.addEventListener('change', input => {
-    moduleSelection(input, cy) // global module
+  group.addEventListener('click', e => {
+    moduleSelection(cy, e.target.textContent) // global module
   })
 }
 
 module.exports = {
   addNode: addNode,
   addEdge: addEdge,
+  threatVerify: threatVerify,
   validate: validate,
   overview: overview,
   moduleGroup: moduleGroup

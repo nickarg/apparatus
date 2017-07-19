@@ -1,22 +1,26 @@
-:root {
+/*gloom color theme*/
+/*:root {
   --main-bg-color: #292a44;
   --main-dark-bg-color: #212135;
-  --main-tx-color: #f1eff7;
+  --main-tx-color: #dcdcdc;
   --blue-color: #6d94e5;
   --cyan-color: #6df3df;
   --black-color: #2d3e4f;
   --gray-color: #abb2bf;
-}
+}*/
 
-/*:root {
+
+/*atom dark color theme*/
+:root {
   --main-bg-color: #282c34;
   --main-dark-bg-color: #21252b;
   --main-tx-color: #abb2bf;
   --blue-color: #61afef;
+  --cyan-color: #56b6c2;
   --green-color: #98c379;
-  --black-color: #2d3e4f;
+  --black-color: #3b4251;
   --gray-color: #abb2bf;
-}*/
+}
 
 @keyframes fadein {
   from {
@@ -37,15 +41,10 @@ body {
   padding: 0;
   font-size: 15px;
   /* Smoother startup */
-  -webkit-animation: fadein 0.4s;
+  -webkit-animation: fadein 0.3s;
   /*disable text selection*/
   -webkit-user-select: none;
   overflow: hidden;
-}
-
-h3 {
-  color: var(--blue-color);
-  text-align: center;
 }
 
 .title-bar {
@@ -55,20 +54,22 @@ h3 {
   cursor: wait;
   text-align: center;
   -webkit-app-region: drag;
+  border-bottom: 1px solid;
+  border-color: var(--main-dark-bg-color);
 }
 
 .window {
   position: relative;
   height: 97vh;
   display: grid;
-  grid-template-columns: 140px 1fr 165px;
+  grid-template-columns: 50px 1fr 165px;
   grid-template-areas: "action-bar graph sidebar" "action-bar graph sidebar" "action-bar graph sidebar";
 }
 
 .action-bar {
-  margin-top: 10px;
   display: block;
   grid-area: action-bar;
+  background-color: var(--main-dark-bg-color);
 }
 
 .components {
@@ -76,7 +77,6 @@ h3 {
 }
 
 .graph {
-  /*background-image: url(bulidingPlan.png);*/
   background-size: cover;
   grid-area: graph;
 }
@@ -107,8 +107,7 @@ h3 {
 
 .bubble {
   position: relative;
-  /*width: 95vw;*/
-  background-color: var(--black-color);
+  background-color: var(--main-dark-bg-color);
   color: var(--main-tx-color);
   overflow: auto;
   white-space: pre-wrap;
@@ -117,10 +116,10 @@ h3 {
   border-radius: 10px;
   -webkit-animation: fadein 0.4s;
 }
-
 .bubble:hover {
-  background-color: var(--blue-color);
+  background-color: var(--black-color);
 }
+
 
 /*.tool {
   background-color: var(--gray-color);
@@ -140,11 +139,9 @@ h3 {
   border-color: var(--main-bg-color);
   color: var(--main-tx-color);
 }
-
 .input-form {
   outline: none;
 }
-
 .submit-form {
   background-color: var(--main-bg-color);
   margin-top: 3px;
@@ -156,75 +153,28 @@ h3 {
 
 .console-wrapper {
   width: 100%;
-  height: 30px;
+  height: 22px;
   padding: 5px;
   display: flex;
-  flex: 1 1 30px;
+  flex: 1 1 22px;
   bottom: 0;
   position: fixed;
   background-color: var(--main-bg-color);
 }
-
 #console-id {
+  height: 20px;
   background-color: var(--main-bg-color);
   border: 1px solid;
   border-color: var(--main-bg-color);
   border-bottom: 3px solid var(--gray-color);
   color: var(--main-tx-color);
-  font-size: 13px;
+  font-size: 11px;
+  font-family: monaco, consolas, mono;
   position: absolute;
 }
-
 #console-id:focus {
   border-bottom: 3px solid var(--blue-color);
   outline: none;
-}
-
-.button {
-  background-color: var(--main-bg-color);
-  margin: 3px;
-  color: var(--main-tx-color);
-  width: 100px;
-  height: 35px;
-  border: 1px solid;
-  border-color: var(--main-bg-color);
-  font-size: 12px;
-}
-
-.selection {
-  width: 133px;
-  margin-top: 4px;
-  margin-bottom: 4px;
-  font-size: 12px;
-  background-color: var(--main-bg-color);
-  color: var(--main-tx-color);
-  border: 1px solid;
-  border-color: var(--main-bg-color);
-}
-
-.button:hover, .selection:hover {
-  border-bottom-color: var(--blue-color);
-  color: var(--blue-color);
-}
-
-/*remove the blue outline box of chrome*/
-.button:focus, .selection:focus {
-  outline: none;
-}
-
-/*flash color when clicked*/
-.button:active, .selection:active {
-  color: var(--main-tx-color);
-  border-bottom-color: var(--main-tx-color);
-}
-
-option[value=""][disabled] {
-  display: none;
-}
-
-option {
-  background-color: var(--gray-color);
-  color: var(--black-color);
 }
 
 .container-node {
@@ -247,92 +197,149 @@ option {
 
 .legend {
   bottom: 0;
-  left: 0;
   margin: 5px;
   position: fixed;
   white-space: pre-wrap;
-  font-size: 13px;
+  font-size: 12px;
   overflow: auto;
 }
 
-.label-wrapper {
-  bottom: 22px;
-  position: fixed;
+
+/*warning to save file on exit*/
+#home-button-id:hover:after {
+  content: 'save first';
+}
+#home-button-id:hover span {
+  display: none;
 }
 
+.icon {
+  fill: var(--main-tx-color);
+}
+.icon:hover {
+  fill: var(--blue-color);
+}
+.button-icon {
+  background-color: var(--main-dark-bg-color);
+  margin: 2px;
+  color: var(--main-tx-color);
+  border: 1px solid;
+  border-color: var(--main-dark-bg-color);
+}
+/*flash color when clicked*/
+.button-icon:active, .icon:active {
+  fill: var(--main-tx-color);
+}
+.button-icon:focus {
+  outline: none;
+  fill: var(--blue-color);
+}
+
+/*dropdown buttons*/
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  display: none;
+  margin: 0;
+  list-style: none;
+  padding: 0;
+  overflow: auto;
+  z-index: 1;
+}
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+.dropdown a {
+  display: block;
+  padding: 0.2em 0.8em;
+  text-decoration: none;
+  background-color: var(--main-dark-bg-color);
+  color: var(--main-tx-color);
+  font-size: 12px;
+}
+.dropdown a:hover {
+  background-color: var(--blue-color);
+  color: var(--main-dark-bg-color);
+}
+.dropdown a:active {
+  background-color: var(--main-tx-color);
+}
+
+/*label button components*/
+.label-wrapper {
+  bottom: 0;
+  margin: 0 auto;
+  width: 40px;
+  position: fixed;
+}
 .label-button {
   background-color: var(--main-dark-bg-color);
-  margin: 1px;
+  margin: 0;
+  margin-left: 10px;
   color: var(--main-tx-color);
   width: 20px;
   height: 20px;
   border: 1px solid;
   border-radius: 20px;
-  border-color: var(--main-dark-bg-color);
+  border-color: var(--main-tx-color);
   font-size: 10px;
 }
-
 .label-button:hover {
-  background-color: var(--blue-color);
+  border-color: var(--blue-color);
+  color: var(--blue-color);
 }
-
 /*remove the blue outline box of chrome*/
 .label-button:focus {
   outline: none;
 }
-
 /*flash color when clicked*/
 .label-button:active {
-  background-color: : var(--main-tx-color);
+  border-color: var(--main-tx-color);
+  color: : var(--main-tx-color);
 }
 
-.choose {
-  margin: 0 auto;
+/*load menu*/
+.wrapper {
+  position: absolute;
+  width: 130px;
+  border-radius: 10px;
+  background-color: var(--black-color);
+  margin: auto;
   margin-top: 12em;
-  width: 12em;
+  z-index: 2;
+  right: 50%;
+  text-align: center;
 }
-
-.buttonPhase {
-  background-color: var(--main-bg-color);
+.startButtons {
+  background-color: var(--main-dark-bg-color);
   margin: 5px;
   color: var(--main-tx-color);
-  width: 150px;
-  height: 40px;
+  width: 120px;
+  height: 30px;
+  border-radius: 10px;
   border: 1px solid;
-  border-color: var(--main-bg-color);
-  font-size: 14px;
+  border-color: var(--main-dark-bg-color);
+  font-size: 13px;
 }
-
-.buttonPhase:hover {
-  border-bottom-color: var(--blue-color);
+.startButtons:hover {
+  border-color: var(--blue-color);
 }
-
-/*remove the blue outline box of chrome*/
-.buttonPhase:focus {
+.startButtons:focus {
   outline: none;
 }
 
 ::-webkit-scrollbar {
   width: 7px;
 }
-
 ::-webkit-scrollbar-track {
-  /*-webkit-box-shadow: inset 0 0 6px rgba(171, 178, 191, 0.3);*/
   -webkit-box-shadow: none;
   border-radius: 6px;
 }
-
 ::-webkit-scrollbar-thumb {
   border-radius: 6px;
   background-color: rgba(171, 178, 191, 0.3);
-  /*-webkit-box-shadow: inset 0 0 6px rgba(171,178,191,0.5);*/
-}
-
-/*warning to save file on exit*/
-#home-button-id:hover:after {
-  content: 'save first';
-}
-
-#home-button-id:hover span {
-  display: none;
 }
