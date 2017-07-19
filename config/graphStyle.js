@@ -133,6 +133,13 @@ graphStyle.style = [{
   },
   // declare edge shapes
   {
+    selector: '.standard',
+    style: {
+      //'line-style': 'dashed'
+      label: ''
+    }
+  },
+  {
     selector: '.creates',
     style: {
       //'line-style': 'dashed'
@@ -145,16 +152,31 @@ graphStyle.style = [{
       //'line-style': 'dashed'
       label: 'requires'
     }
-  }, {
+  },
+  {
     selector: '.restricts',
     style: {
       //'line-style': 'dashed'
-       label: 'restricts',
-      // 'text-valign': 'bottom',
-      // 'source-arrow-color': config.gray,
-      // 'source-arrow-shape': 'triangle',
-      // 'source-arrow-fill': 'filled'
+       label: 'restricts'
     }
-}]
+  },
+  {
+    selector: '.impacts',
+    style: {
+      label: 'impacts'
+    }
+  },
+  {
+    selector: '.implements',
+    style: {
+      label: 'impements'
+    }
+  },
+  {
+    selector: '.mitigates',
+    style: {
+      label: 'mitigates'
+    }
+  }]
 
 module.exports = graphStyle

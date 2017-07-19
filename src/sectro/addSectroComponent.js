@@ -2,7 +2,6 @@
 
 // add components in the graph
 
-// TODO needs refactoring
 module.exports = function addSectroComponent (cy, component) {
   let lastNode = cy.nodes().length + 1
 
