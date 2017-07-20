@@ -31,11 +31,20 @@ module.exports = function setup (cy) {
 
   // global variables, used in cy.on
   let selectedNode = {}
+  let oldSelectedNode = {}
   let selectedEdge = {}
   let srcNode = {}
   let trgNode = {}
   let srcNodeCpt = {}
   let trgNodeCpt = {}
+  // initialize export variables to prevent undefined errors
+  selectedNode.out = {}
+  selectedEdge.out = {}
+  srcNode.out = {}
+  trgNode.out = {}
+  srcNodeCpt.out = {}
+  trgNodeCpt.out = {}
+
   // counter variable to create unique sequential node ids in addComponents.js
   const initialCount = cy.nodes().length
 
@@ -46,8 +55,13 @@ module.exports = function setup (cy) {
     cy.elements().removeClass('selection')
     cy.elements().removeClass('attention')
     cy.elements().removeClass('protect')
+    cy.nodes().removeClass('old-selection')
+    oldSelectedNode = selectedNode.out
     selectedNode.out = selection.target[0]
     selectedNode.out.addClass('selection')
+    if (Object.keys(oldSelectedNode).length !== 0) {
+      oldSelectedNode.addClass('old-selection')
+    }
     srcNode.out = trgNode.out // second selection
     trgNode.out = selectedNode.out.data().id
     srcNodeCpt.out = trgNodeCpt.out // second selection
@@ -62,8 +76,10 @@ module.exports = function setup (cy) {
     cy.elements().removeClass('selection')
     cy.elements().removeClass('attention')
     cy.elements().removeClass('protect')
+    cy.nodes().removeClass('old-selection')
     selection.target.addClass('selection')
     selectedNode.out = {} // clear token
+    oldSelectedNode = {} // clear token
     selectedEdge.out = selection.target[0]
     totalNodes(cy) // global module
     editNode.removeElement() // remove the edit node element
@@ -77,8 +93,10 @@ module.exports = function setup (cy) {
       cy.elements().removeClass('selection')
       cy.elements().removeClass('attention')
       cy.elements().removeClass('protect')
+      cy.nodes().removeClass('old-selection')
       // clear tokens
       selectedNode.out = {}
+      oldSelectedNode = {}
       selectedEdge.out = {}
       totalNodes(cy) // global module
       editNode.removeElement() // remove the edit node element
