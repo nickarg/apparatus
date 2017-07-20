@@ -26,7 +26,7 @@ const sectro = require('../src/sectro/sectro.js')
 
 module.exports = function setup (cy) {
   // initial label render
-  cy.nodes().addClass('label-nodes')
+  cy.nodes().addClass('label-dsc')
   cy.edges().addClass('label-edges')
 
   // global variables, used in cy.on

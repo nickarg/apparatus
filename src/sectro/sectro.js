@@ -19,7 +19,7 @@ const addNode = (cy, nodeCounter) => {
   addNode.addEventListener('click', e => {
       nodeCounter += 1
     addSectroComponent(cy, e.target.textContent, nodeCounter)
-    cy.nodes().addClass('label-nodes')
+    cy.nodes().addClass('label-dsc')
     totalNodes(cy) // global module
   })
 }
