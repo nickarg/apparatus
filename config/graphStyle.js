@@ -8,7 +8,7 @@ graphStyle.style = [{
   selector: 'node',
   style: {
     shape: 'ellipse',
-    'background-color': config.white
+    'background-color': config.white,
   }
 }, {
   selector: 'edge',
@@ -26,13 +26,15 @@ graphStyle.style = [{
 }, {
   selector: '.selection',
   style: {
-    'background-color': config.blue,
-    'line-color': config.blue
+    'border-color': config.white,
+    'line-color': config.blue,
+    'border-width': 6
   }
 }, {
   selector: '.old-selection',
   style: {
-    'background-color': config.orange
+    'border-color': config.white,
+    'border-width': 3
   }
 }, {
   selector: '.attention',
